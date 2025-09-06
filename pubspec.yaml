@@ -1,0 +1,35 @@
+name: wallet_tron
+description: "The Tron Wallet package is a Dart/Flutter library designed to facilitate the integration of Tron blockchain functionality into Flutter applications."
+version: 0.0.1
+
+environment:
+  sdk: '>=3.4.4 <4.0.0'
+  flutter: ">=1.17.0"
+
+dependencies:
+  bs58check: ^1.0.2
+  dart_bs58: ^1.0.1
+  flutter:
+    sdk: flutter
+  flutter_inappwebview: ^6.0.0
+  hex: ^0.2.0
+  http: ^1.2.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+# For information on the generic Dart part of this file, see the
+# following page: https://dart.dev/tools/pub/pubspec
+
+# The following section is specific to Flutter packages.
+flutter:
+
+  # To add assets to your package, add an assets section, like this:
+  assets: 
+    - packages/wallet_tron/asset/
+    - packages/wallet_tron/asset/TronIndex.html
+    - packages/wallet_tron/asset/tronintraction.js
+    - packages/wallet_tron/asset/tronweb.js
+ 
