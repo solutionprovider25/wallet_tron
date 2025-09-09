@@ -30,7 +30,7 @@ flutter:
   assets: 
     - packages/wallet_tron/asset/
     - packages/wallet_tron/asset/TronIndex.html
-    - packages/wallet_tron/asset/troninteraction.js
+    - packages/wallet_tron/asset/tronintraction.js
     - packages/wallet_tron/asset/tronweb.js
 
     
