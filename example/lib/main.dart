@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tron_wallet/tron_wallet.dart';
+import 'package:wallet_tron/tron_wallet.dart';
 
 void main() {
   runApp(const MyApp());
@@ -77,19 +77,19 @@ class _MyHomePageState extends State<MyHomePage> {
                 });
               }),
               Clickbutton('Send TRX', () async {
-                var resp = await TronwalletAction.SendTrx(
-                    ReceiverAddress: '************************',
+                var resp = await TronwalletAction.sendTrx(
+                    receiverAddress: '************************',
                     amountinSun: TronwalletAction.getSun(num.parse('x')),
                     privatekey: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
                 //Sucess : {"Response": *******}
                 //ERROR: {"Error": *******}
               }),
               Clickbutton('Send TRC20 Token', () async {
-                var resp = await TronwalletAction.SendTRC20Token(
-                    ReceiverAddress: 'xxxxxxxxxxxxxxxxxxxxxx',
-                    ContractAddresss: 'xxxxxxxxxxxxxxxxxxxxx',
+                var resp = await TronwalletAction.sendTRC20Token(
+                    receiverAddress: 'xxxxxxxxxxxxxxxxxxxxxx',
+                    contractAddresss: 'xxxxxxxxxxxxxxxxxxxxx',
                     privatekey: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
-                    OwnerAddress: 'xxxxxxxxxxxxxxxxxxxxxxxx',
+                    ownerAddress: 'xxxxxxxxxxxxxxxxxxxxxxxx',
                     amountInContactType:
                         TronwalletAction.getSun(num.parse('x')));
                 //Sucess : {"Response": *******}
@@ -103,7 +103,7 @@ class _MyHomePageState extends State<MyHomePage> {
               }),
               Clickbutton('Vote', () async {
                 var resp = await TronwalletAction.vote(
-                    Owneraddress: 'xxxxxxxxxxxxxxxxxxxxxxxxx',
+                    owneraddress: 'xxxxxxxxxxxxxxxxxxxxxxxxx',
                     votes: {"****************": 0},
                     privatekey: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
                 //Sucess : {"Response": *******}

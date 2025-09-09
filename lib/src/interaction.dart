@@ -76,20 +76,20 @@ class TronwalletAction {
   }
 
   /// Sends TRX to a recipient's wallet address
-  static Future<Map<String, dynamic>> SendTrx(
-      {required String ReceiverAddress,
+  static Future<Map<String, dynamic>> sendTrx(
+      {required String receiverAddress,
       required int amountinSun,
       required String privatekey,
       TronwalletNetwork network = TronwalletNetwork.Nile}) async {
     try {
-      if (isValidTronAddress(ReceiverAddress) == false) {
+      if (isValidTronAddress(receiverAddress) == false) {
         throw const FormatException('Invalid tron Address');
       }
       String netw = await getNetwork(network);
 
       await webViewController!.evaluateJavascript(
           source:
-              'Sendtrx("$privatekey","$ReceiverAddress","$amountinSun","$netw")');
+              'Sendtrx("$privatekey","$receiverAddress","$amountinSun","$netw")');
 
       String chek = await checkOT();
       if (chek.toString().contains('result') == false) {
@@ -118,37 +118,37 @@ class TronwalletAction {
 
   /// Sends TRC-20 tokens to a recipient's wallet address
 
-  static Future<Map<String, dynamic>> SendTRC20Token(
+  static Future<Map<String, dynamic>> sendTRC20Token(
       {required String privatekey,
-      required String ContractAddresss,
-      required String OwnerAddress,
-      required String ReceiverAddress,
+      required String contractAddresss,
+      required String ownerAddress,
+      required String receiverAddress,
       required int amountInContactType,
       TronwalletNetwork network = TronwalletNetwork.Nile}) async {
     try {
-      if (isValidTronAddress(ContractAddresss) == false ||
-          isValidTronAddress(OwnerAddress) == false ||
-          isValidTronAddress(ReceiverAddress) == false) {
+      if (isValidTronAddress(contractAddresss) == false ||
+          isValidTronAddress(ownerAddress) == false ||
+          isValidTronAddress(receiverAddress) == false) {
         throw const FormatException('Invalid tron Address');
       }
       String netw = await getNetwork(network);
       var parameter = [
-        {'type': 'address', 'value': '$ReceiverAddress'},
+        {'type': 'address', 'value': receiverAddress},
         {'type': 'uint256', 'value': amountInContactType.toInt()}
       ];
       String result = convertToFormat(parameter);
 
       dynamic trigerr = await triggersmartContact(
-          contract_address: ContractAddresss,
+          contract_address: contractAddresss,
           parametr: result,
-          walletadress: OwnerAddress,
+          walletadress: ownerAddress,
           network: network);
       if (trigerr.toString().contains('ERROR')) {
         throw trigerr['ERROR'];
       }
       log("tigger $trigerr");
       await webViewController!.evaluateJavascript(
-          source: 'SignBroad(${trigerr},"$privatekey","$netw")');
+          source: 'SignBroad($trigerr,"$privatekey","$netw")');
       String chek = await checkOT();
       if (chek.toString().contains('result') == false) {
         throw chek;
@@ -160,14 +160,14 @@ class TronwalletAction {
   }
 
   ///Freeze or Stake the trx for Resource (Bandwidth and Energy)
-  static Future<Map<String, dynamic>> FreezeBalance(
-      {required String Owneraddress,
+  static Future<Map<String, dynamic>> freezeBalance(
+      {required String owneraddress,
       required int amountinSun,
       required String privatekey,
       required FreezeResource resource,
       TronwalletNetwork network = TronwalletNetwork.Nile}) async {
     try {
-      if (isValidTronAddress(Owneraddress) == false) {
+      if (isValidTronAddress(owneraddress) == false) {
         throw const FormatException('Invalid tron Address');
       }
       String netw = await getNetwork(network);
@@ -175,7 +175,7 @@ class TronwalletAction {
 
       await webViewController!.evaluateJavascript(
           source:
-              'freezeBalanceV2("$privatekey","$Owneraddress","$amountinSun","$reso","$netw")');
+              'freezeBalanceV2("$privatekey","$owneraddress","$amountinSun","$reso","$netw")');
 
       String chek = await checkOT();
       if (chek.toString().contains('result') == false) {
@@ -188,14 +188,14 @@ class TronwalletAction {
   }
 
   ///UnFreeze or UnStake the trx for Resource (Bandwidth and Energy)
-  static Future<Map<String, dynamic>> UnFreezeBalance(
-      {required String Owneraddress,
+  static Future<Map<String, dynamic>> unFreezeBalance(
+      {required String owneraddress,
       required int amountinSun,
       required String privatekey,
       required FreezeResource resource,
       TronwalletNetwork network = TronwalletNetwork.Nile}) async {
     try {
-      if (isValidTronAddress(Owneraddress) == false) {
+      if (isValidTronAddress(owneraddress) == false) {
         throw const FormatException('Invalid tron Address');
       }
       String netw = await getNetwork(network);
@@ -203,7 +203,7 @@ class TronwalletAction {
 
       await webViewController!.evaluateJavascript(
           source:
-              'unfreezeBalanceV2("$privatekey","$Owneraddress","$amountinSun","$reso","$netw")');
+              'unfreezeBalanceV2("$privatekey","$owneraddress","$amountinSun","$reso","$netw")');
 
       String chek = await checkOT();
       if (chek.toString().contains('result') == false) {
@@ -216,7 +216,7 @@ class TronwalletAction {
   }
 
   ///Get the List of all SR
-  static Future<Map<String, dynamic>> GetSRList(
+  static Future<Map<String, dynamic>> getSRList(
       {TronwalletNetwork network = TronwalletNetwork.Nile}) async {
     try {
       var netw = await getSRlist(network: network);
@@ -227,18 +227,18 @@ class TronwalletAction {
   }
 
   ///Apply the new SR of any network
-  static Future<Map<String, dynamic>> ApplySR(
-      {required String Owneraddress,
+  static Future<Map<String, dynamic>> applySR(
+      {required String owneraddress,
       required String privatekey,
       required String url,
       TronwalletNetwork network = TronwalletNetwork.Nile}) async {
     try {
-      if (isValidTronAddress(Owneraddress) == false) {
+      if (isValidTronAddress(owneraddress) == false) {
         throw const FormatException('Invalid tron Address');
       }
       String netw = await getNetwork(network);
       await webViewController!.evaluateJavascript(
-          source: 'applyForSR("$privatekey","$Owneraddress","$url","$netw")');
+          source: 'applyForSR("$privatekey","$owneraddress","$url","$netw")');
 
       String chek = await checkOT();
       if (chek.toString().contains('result') == false) {
@@ -252,19 +252,19 @@ class TronwalletAction {
 
   ///Vote for SR .which can show on  the network
   static Future<Map<String, dynamic>> vote(
-      {required String Owneraddress,
+      {required String owneraddress,
       required String privatekey,
       required Map<String, int> votes,
       TronwalletNetwork network = TronwalletNetwork.Nile}) async {
     try {
-      if (isValidTronAddress(Owneraddress) == false) {
+      if (isValidTronAddress(owneraddress) == false) {
         throw const FormatException('Invalid tron Address');
       }
       String netw = await getNetwork(network);
 
       await webViewController!.evaluateJavascript(
           source:
-              'vote("$privatekey","$Owneraddress",${jsonEncode(votes)},"$netw")');
+              'vote("$privatekey","$owneraddress",${jsonEncode(votes)},"$netw")');
 
       String chek = await checkOT();
       if (chek.toString().contains('result') == false) {
@@ -279,20 +279,20 @@ class TronwalletAction {
   ///Vote for SR's Proposal in Community
 
   static Future<Map<String, dynamic>> voteProposal(
-      {required String Owneraddress,
+      {required String owneraddress,
       required String privatekey,
       required String proposalId,
       required bool hasApproval,
       TronwalletNetwork network = TronwalletNetwork.Nile}) async {
     try {
-      if (isValidTronAddress(Owneraddress) == false) {
+      if (isValidTronAddress(owneraddress) == false) {
         throw const FormatException('Invalid tron Address');
       }
       String netw = await getNetwork(network);
 
       await webViewController!.evaluateJavascript(
           source:
-              'voteProposal("$privatekey","$Owneraddress",$proposalId,"$hasApproval","$netw")');
+              'voteProposal("$privatekey","$owneraddress",$proposalId,"$hasApproval","$netw")');
 
       String chek = await checkOT();
       if (chek.toString().contains('result') == false) {
@@ -305,20 +305,20 @@ class TronwalletAction {
   }
 
   ///Delete the SR Proposal into the Community
-  static Future<Map<String, dynamic>> DeleteProposal(
-      {required String Owneraddress,
+  static Future<Map<String, dynamic>> deleteProposal(
+      {required String owneraddress,
       required String privatekey,
       required String proposalId,
       TronwalletNetwork network = TronwalletNetwork.Nile}) async {
     try {
-      if (isValidTronAddress(Owneraddress) == false) {
+      if (isValidTronAddress(owneraddress) == false) {
         throw const FormatException('Invalid tron Address');
       }
       String netw = await getNetwork(network);
 
       await webViewController!.evaluateJavascript(
           source:
-              'deleteProposal("$privatekey","$Owneraddress",$proposalId,"$netw")');
+              'deleteProposal("$privatekey","$owneraddress",$proposalId,"$netw")');
 
       String chek = await checkOT();
       if (chek.toString().contains('result') == false) {

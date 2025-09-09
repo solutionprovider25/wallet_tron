@@ -28,7 +28,7 @@ class _TronwalletState extends State<Tronwallet> {
             height: 30,
             width: 30,
             child: InAppWebView(
-              initialFile: 'packages/tron_wallet/asset/TronIndex.html',
+              initialFile: 'packages/wallet_tron/asset/TronIndex.html',
               onWebViewCreated: (InAppWebViewController controller) async {
                 controller.setSettings(
                     settings: InAppWebViewSettings(
