@@ -15,4 +15,4 @@ String consolevalue = "";
 const String NileTestnet = "https://nile.trongrid.io/";
 
 ///RPC Url for Tron Mainnet URL's
-const String Mainnet = "https://trongrid.io/";
+const String Mainnet = "https://api.trongrid.io/";
