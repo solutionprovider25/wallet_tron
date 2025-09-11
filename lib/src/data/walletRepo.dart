@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
-
 import 'package:flutter/services.dart';
 import 'package:hex/hex.dart';
 import 'package:wallet_tron/src/data/Content.dart';
